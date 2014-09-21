@@ -31,11 +31,7 @@ class Blog
     protected $app;
 
     /**
-     * //TODO take in $app[] instead of DB and use user.provider, blog.provider ??? as per \SimpleUser\UserManager::__construct
-     * TODO need to add a BlogServiceProvider? (User dataobject does not have access to $app, only UserManager does)
-     * TODO so need Blog(Manager)::hydrateBlogPost($blogPost) calls $blogPost -> setCreator($userManager->getUser($blogPost->getCreatorId))?
-     *
-     * Set up access class using given DB connection
+     * Set up access class using given DB connection & app resources
      * @param Connection $dbConnection
      * @param Application $app
      */

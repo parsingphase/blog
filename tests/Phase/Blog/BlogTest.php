@@ -47,15 +47,14 @@ class BlogTest extends \PHPUnit_Framework_TestCase
             'path' => $dbFile
         ];
 
-        $this->application = new Application(); //FIXME mock this!
+        // Borderline decision on whether to mock either Application or UserServiceProvider - leave it for now
+        $this->application = new Application();
         $this->application['db.options'] = $dbParams;
         $this->application['security.voters'] = function () {
-            return [];
-        }; // required by UserManager; set none
+            return []; // Has to return a function as UserManager extends it
+        };
         $this->application->register(new DoctrineServiceProvider());
-        $this->application->register(new UserServiceProvider());
-
-
+        $this->application->register(new UserServiceProvider()); // or just mock a user.manager with a getUser function
         $this->application->boot();
 
         $this->dbConnection = $this->application->getDatabaseConnection();
@@ -127,7 +126,7 @@ class BlogTest extends \PHPUnit_Framework_TestCase
         $blogPost->setBody('Post body');
         //        $blogPost->setCreatorId(1);
 
-        $user = new User('user@example.org'); // todo mock this?
+        $user = new User('user@example.org');
         $user->setId(1); // for test purpose
         $blogPost->setCreator($user);
 
