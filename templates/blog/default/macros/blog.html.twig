@@ -32,7 +32,9 @@
         <div class="pull-right">
             {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-default"
                                                 href="{{ path('blog.editPost',{uid: post.id, slug: post.slug}) }}"><span
-                        class="glyphicon glyphicon-pencil"></span> Edit</a> {% endif %}
+                        class="glyphicon glyphicon-pencil"></span> Edit</a> <a class="btn btn-default"
+                                                href="{{ path('blog.deletePost',{uid: post.id, slug: post.slug}) }}"><span
+                        class="glyphicon glyphicon-trash"></span> Delete</a> {% endif %}
         </div>
 
         <h1>{{ blog.postStatusIcons(post) }}

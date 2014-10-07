@@ -95,6 +95,11 @@ class BlogControllerProvider implements ControllerProviderInterface
             'blog.controller:editPostAction'
         )->bind('blog.editPost')->assert('uid', '\d+')->method('POST|GET')->secure('ROLE_ADMIN');
 
+        $controllers->match(
+            '/{uid}_{slug}/delete',
+            'blog.controller:deletePostAction'
+        )->bind('blog.deletePost')->assert('uid', '\d+')->method('POST|GET')->secure('ROLE_ADMIN');
+
         $controllers->get(
             '/{uid}_{slug}',
             'blog.controller:singlePostAction'

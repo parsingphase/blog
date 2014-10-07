@@ -224,4 +224,9 @@ class Blog
         $post->setCreator($creator);
         return $post;
     }
+
+    public function deletePostById($id)
+    {
+        return (bool)$this->dbConnection->delete('blog_post', ['id' => $id]);
+    }
 }

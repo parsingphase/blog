@@ -172,4 +172,52 @@ class BlogController
         $form = $formBuilder->getForm();
         return $form;
     }
+
+    /**
+     * Currently allow admin to delete any post
+     * @param Request $request
+     * @param int $uid
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function deletePostAction(Request $request, $uid)
+    {
+        // There may be neater ways of doing this?
+        if (!$this->app->getSecurityContext()->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedHttpException;
+        }
+        $blogPost = $this->blog->fetchPostById($uid);
+        $action = $this->app->url('blog.deletePost', ['uid' => $blogPost->getId(), 'slug' => $blogPost->getSlug()]);
+        $formData = ['uid' => $uid, 'sure' => false];
+        $formBuilder = $this->app->getFormFactory()
+            ->createBuilder('form', $formData)
+            ->add('uid', 'hidden')
+            ->add('sure', 'checkbox', ['label' => 'Yes, delete this post'])
+            ->add('delete', 'submit')
+            ->setAction($action);
+
+        $viewData = [];
+
+        /* @var FormBuilder $formBuilder Interface definition means PhpStorm chokes there */
+        $form = $formBuilder->getForm();
+
+        $form->handleRequest($request);
+
+        $deleted = false;
+
+        if ($form->isValid()) {
+            $data = $form->getData();
+            $sure = $data['sure'];
+            if ($sure && ($uid === $data['uid'])) {
+                $deleted = $this->blog->deletePostById($uid);
+            }
+        }
+
+        if ($deleted) {
+            $viewData['deletedPost'] = $blogPost;
+        } else {
+            $viewData = ['blogPost' => $blogPost, 'form' => $form->createView()];
+        }
+
+        return $this->app->render('@blog/deletePost.html.twig', $viewData);
+    }
 }

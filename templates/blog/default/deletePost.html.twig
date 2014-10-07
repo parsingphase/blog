@@ -1,0 +1,27 @@
+{% extends '@blog/layout-blog.html.twig' %}
+
+{% block title %}{% if title is defined %}{{ title }}{% else %}Delete Post{% endif %} | Blog{% endblock %}
+
+{% block content %}
+    <div>
+        <div class="well">
+            {% if is_granted('ROLE_ADMIN') %}
+                {% if deletedPost is defined %}
+                    <div class="alert alert-success">Deleted "{{ deletedPost.subject }}" (ID  {{ deletedPost.ID }})</div>
+                    <p></p>
+                {% else %}
+                    <h1>Really delete "{{ blogPost.subject }}" (ID  {{ blogPost.ID }}) ?</h1>
+                    {{ form_start(form, {'attr': {'class': 'form-inline' }}) }}
+                    {{ form_errors(form) }}
+                    <div class="form-group">
+                        {{ form_label(form.sure)|striptags }}
+                        {{ form_widget(form.sure, {'attr': {'class': 'form-control' }}) }}
+                    </div>
+                    {{ form_end(form) }}
+                {% endif %}
+            {% else %}
+                <div class="alert alert-danger">Admin access only</div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
