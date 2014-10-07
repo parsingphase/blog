@@ -42,6 +42,13 @@ class BlogControllerProvider implements ControllerProviderInterface
 
         $moduleBaseDir = dirname(dirname(dirname(dirname(__DIR__))));
 
+        //Identify exact path
+        $app->getTwigFilesystemLoader()->addPath(
+            $moduleBaseDir . '/templates/blog',
+            'blog'
+        );
+
+        //Identify parent path so that we can refer directly to @blog/default if required
         $app->getTwigFilesystemLoader()->addPath(
             $moduleBaseDir . '/templates/blog',
             'blog'
