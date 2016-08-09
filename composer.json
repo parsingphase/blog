@@ -22,7 +22,7 @@
     },
     "minimum-stability": "stable",
     "require": {
-        "php": "~5.5",
+        "php": "~5.5|^7.0",
         "doctrine/dbal": "~2.4",
         "parsingphase/adze": "dev-master"
     },
