@@ -79,7 +79,7 @@
     </target>
 
     <target name="phpdox" depends="phploc" description="Build class documentation">
-        <chmod file="${basedir}/vendor/theseer/phpdox/composer/bin/phpdox" perm="u+x"/>
+        <!-- chmod file="${basedir}/vendor/theseer/phpdox/composer/bin/phpdox" perm="u+x"/ -->
         <exec executable="${basedir}/vendor/bin/phpdox" failonerror="true">
         </exec>
     </target>
