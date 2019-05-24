@@ -11,8 +11,8 @@
     ],
     "repositories": [
         {
-            "type": "vcs",
-            "url": "https://github.com/parsingphase/adze.git"
+            "type": "composer",
+            "url": "https://satis.phase.org"
         }
     ],
     "autoload": {
