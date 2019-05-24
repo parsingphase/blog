@@ -24,7 +24,7 @@
     "require": {
         "php": "~5.5|^7.0",
         "doctrine/dbal": "~2.4",
-        "parsingphase/adze": "dev-master"
+        "parsingphase/adze": "^1.1"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.2",
