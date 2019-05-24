@@ -2,4 +2,6 @@ language: php
 php:
   - 7.2
   - 7.3
-script: ant test
+script:
+  - echo $COMPOSER_AUTH
+  - ant test
